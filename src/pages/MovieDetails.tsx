@@ -12,13 +12,17 @@ import ParagraphText from "../components/ParagraphText";
 import ShowsService from "../services/ShowsService";
 
 import {AiOutlineHeart as LoveThis} from 'react-icons/ai';
+import {FaHeart as Wishlisted} from 'react-icons/fa';
 import {IoArrowBackSharp} from 'react-icons/io5';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation } from 'swiper';
 import 'swiper/swiper-bundle.min.css';
 
-// install Swiper modules
+import { useDispatch } from "react-redux";
+
+import {addMovieToWishlist, checkMovieExistsInWishlist} from '../actions/wishlist';
+
 SwiperCore.use([Navigation]);
 
 const MovieDetailsContainer = styled.div`
@@ -28,6 +32,7 @@ const MovieDetailsContainer = styled.div`
     padding: 2rem;
     display: flex;
     flex-direction: row;
+    padding-top: 12rem;
 
     .meta {
         width: 25%;
@@ -85,6 +90,12 @@ const MovieDetailsContainer = styled.div`
                 }
             }
 
+            .wishlisted {
+                svg {
+                    fill: #FF0000;
+                }
+            }
+
             h3 {
                 font-size: 3rem;
             }
@@ -107,6 +118,11 @@ const MovieDetailsContainer = styled.div`
             margin-top: 5rem;
         }
     }
+
+    @media only screen and (max-width: 768px) {
+        margin-top: 8rem;
+        padding-top: 10rem;
+    }
 `;
 
 const MovieDetails = () => {
@@ -121,7 +137,7 @@ const MovieDetails = () => {
 
     const getCastCrew = async () => {
         setLoading(true);
-        
+
         let response = await ShowsService.getShowCastAndCrew(movie.id);
         setCast(response.data);
         
@@ -131,7 +147,20 @@ const MovieDetails = () => {
     useEffect(()=>{
         setLoading(true);
         getCastCrew();
+        checkMovie();
     }, []);
+
+    const dispatch = useDispatch();
+
+    const wishlistThisMovie = () => {
+        dispatch(addMovieToWishlist(movie.id));
+    }
+
+    const checkMovie = () => {
+        return dispatch(checkMovieExistsInWishlist(movie.id));
+        // console.log(exists);
+    }
+    console.log(checkMovie());
     
     return <MovieDetailsContainer>
         
@@ -162,9 +191,7 @@ const MovieDetails = () => {
                     <IoArrowBackSharp onClick={()=> history.push('/')}/>
                     <h3>&#11088; {movie.rating.average != null ? movie.rating.average : 'Not Rated'} </h3>
                 </div>
-                <div>
-                    <LoveThis />
-                </div>
+                <div onClick={wishlistThisMovie}> <LoveThis /> </div>
             </div>
 
             <div className="story-line">
@@ -185,21 +212,19 @@ const MovieDetails = () => {
                                 slidesPerView={1}
                                 navigation
                                 breakpoints={{
-                                // when window width is >= 640px
-                                640: {
-                                    slidesPerView: 1,
-                                },
-                                // when window width is >= 768px
-                                768: {
-                                    slidesPerView: 2,
-                                },
-                                1200: {
-                                    slidesPerView: 5,
-                                },
+                                    640: {
+                                        slidesPerView: 1,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                    },
+                                    1200: {
+                                        slidesPerView: 4,
+                                    },
                                 }}
-                           >
+                            >
                             {
-                                cast.map((actor:any, index)=> {
+                                cast.map((actor: any, index: number)=> {
                                     return <SwiperSlide key={index}>
                                                 <CastItem 
                                                     image={actor.person.image.original}

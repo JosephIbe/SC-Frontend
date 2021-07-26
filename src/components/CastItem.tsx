@@ -5,11 +5,20 @@ const CastItemContainer = styled.div`
     height: 300px;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 
     img {
         height: 250px;
         width: 200px;
         object-fit: cover;
+        border-radius: 15px;
+        
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+            transition: transform .2s;
+            border-radius: 15px;
+        }
     }
 
     h4 {
@@ -23,7 +32,7 @@ const CastItemContainer = styled.div`
 
 const CastItem = ({image, name} : {image: string, name: string}) => {
     return <CastItemContainer>
-        <img src={image} />
+        <img src={image} alt="Actor's Image"/>
         <h4>{name}</h4>
     </CastItemContainer>
 }

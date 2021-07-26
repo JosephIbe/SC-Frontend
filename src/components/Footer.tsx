@@ -10,6 +10,7 @@ const FooterContainer = styled.div`
   color: var(--gray-1);
   font-size: 20px;
   border-top: 1px solid var(--gray-1);
+  margin-top: 6rem;
 `;
 
 const Footer = () => {

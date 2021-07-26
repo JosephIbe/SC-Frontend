@@ -6,7 +6,6 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import MovieDetails from './pages/MovieDetails';
 import WishList from './pages/WishList';
-import Contact from './pages/Contact';
 
 function App() {
 
@@ -18,7 +17,6 @@ function App() {
           <Route path='/' exact> <Home /> </Route>
           <Route path='/movies/:id' > <MovieDetails /> </Route>
           <Route path='/my-wish-list' > <WishList /> </Route>
-          <Route path='/contact' > <Contact /> </Route>
         </Switch>
       </Router>
       <Footer />

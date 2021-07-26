@@ -2,12 +2,16 @@ import styled from 'styled-components';
 
 import {NavLink} from 'react-router-dom';
 
-import {GoSearch} from 'react-icons/go';
-import {IoIosPerson} from 'react-icons/io';
+import { MdClose, MdMenu } from 'react-icons/md';
+import { useState } from 'react';
 
 const NavbarContainer = styled.div`
   width: 100%;
   height: 80px;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,6 +19,7 @@ const NavbarContainer = styled.div`
   border-bottom: 1px solid var(--primary);
   padding: 0 8rem;
   color: var(--gray-1);
+  background-color: var(--dark-bg);
   font-size: 2.5rem;
   font-weight: bold;
 
@@ -35,57 +40,144 @@ const NavbarContainer = styled.div`
     &:hover {
         cursor: pointer;
     }
+
   }
 
   .main-items {
         display: flex;
-        gap: 2.5rem;
+        gap: 2rem;
         color: var(--gray-1);
-        font-size: 2.5rem;
+        font-size: 2rem;
         font-weight: bold;
 
         li, a {
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: bold;
             color: white;
 
             .active {
                 color: var(--primary);
-                font-size: 2.5rem;
+                font-size: 2rem;
                 font-weight: bold;
             }
         }
   }
 
-  .end-items {
+  .mobile-nav {
+      display: none;
+  }
 
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    height: 80px;
     display: flex;
-    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 4rem;
+    border-bottom: 1px solid var(--primary);
+    
+    .logo, .main-items {
+        display: none;
+    }
 
-    .search, .account {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #767779;
+    .mobile-nav {
+        height: auto;
+        width: 100%;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-direction: column;
 
-        svg {
-            width: 17px;
-            height: 17px;
+        .upper-mobile-nav {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding-left: 2rem;
+            padding-right: 2rem;
+
+            .mobile-logo {
+                position: absolute;
+                left: 4rem;
+
+                a {
+                    font-size: 2rem;
+                    font-weight: bold;
+                    color: white;
+
+                    .active {
+                        color: var(--primary);
+                        font-size: 2rem;
+                        font-weight: bold;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .hamburger-menu {
+                justify-content: flex-end;
+                position: absolute;
+                right: 2rem;
+
+                svg {
+                    fill: burlywood;
+                    width: 45px;
+                }
+            }
+        }
+        
+        .lower-mobile-nav {
+            width: 100%;
+            height: auto;
+            z-index: 1000;
+            background-color: var(--primary);
+            margin-top: 100px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            display: ${(props: {showMenu: boolean}) => props.showMenu ? 'block' : 'none'};
+
+            ul {
+                --top: 2rem;
+                display: flex;
+                flex-direction: column;
+
+                li {
+                    font-size: 2rem;
+                    padding: 1.5rem;
+                    color: var(--gray-1);
+                    width: 100%;
+                }
+                    
+                a {
+                    font-size: 2rem;
+                    color: var(--gray-1);
+                    width: 100%;
+                }
+
+                .active {
+                    font-size: 2rem;
+                    color: var(--gray-1);
+                }
+
+            }
         }
 
-        &:hover {
-            cursor: pointer;
+        .hide-items {
+            transform: translateY(calc(-150% - var(--top)));
+            transition: .2s ease-in transform;
         }
     }
+
   }
 `;
 
 const Navbar = () => {
-    return <NavbarContainer>
-        <div className="logo"><NavLink to="/" >Logo</NavLink></div>
+
+    const [showMobileNav, setShowMobileNav] = useState(false);
+
+    return <NavbarContainer showMenu={showMobileNav}>
+        <div className="logo"><NavLink to="/" >MuviMeta</NavLink></div>
         <ul className="main-items">
             <li>
                 <NavLink to="/" exact activeClassName="active">Explore</NavLink>
@@ -93,18 +185,46 @@ const Navbar = () => {
             <li>
                 <NavLink to='/my-wish-list' activeClassName="active">Wish-List</NavLink>
             </li>
-            <li>
-                <NavLink to='/contact' activeClassName="active">Contact Us</NavLink>
-            </li>
         </ul>
-        <div className="end-items">
-            <div className="search">
-                <GoSearch />
+        <div className="mobile-nav">
+                
+                <div className="upper-mobile-nav">
+                    <div className="mobile-logo"><NavLink to="/" >MuviMeta</NavLink></div>
+
+                    <div 
+                        className="hamburger-menu"
+                        role="button"
+                        onClick={()=> setShowMobileNav(!showMobileNav)}
+                    >
+                        {
+                            !showMobileNav ? <MdMenu /> : <MdClose />
+                        }
+                    </div>
+                </div>
+                
+                <div className="lower-mobile-nav">
+                    <ul>
+                        <li>
+                            <NavLink 
+                                to="/"
+                                role="button"
+                                onClick={()=> setShowMobileNav(!showMobileNav)}
+                            >
+                                Home
+                            </NavLink>
+                        </li>
+                        <li 
+                            className="about-menu"
+                            role="button"
+                            onClick={()=> setShowMobileNav(!showMobileNav)}
+                        >
+                            <NavLink to="/wishlist">
+                                Wishlist
+                            </NavLink>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div className="account">
-                <IoIosPerson />
-            </div>
-        </div>
     </NavbarContainer>
 }
 

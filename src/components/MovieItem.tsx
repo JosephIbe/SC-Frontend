@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
 const MovieItemContainer = styled.div`
-    width: 320px;
-    height: 350px;
+    width: 250px;
+    height: 300px;
     border-radius: 20px;
     z-index: 50;
     padding: 15px;
     position: relative;
         
     &:hover {
-        cursor: pointer;    
+        cursor: pointer;
+        transform: scale(1.1);
+        transition: transform .2s;
     }
 
     .meta {
@@ -30,6 +32,11 @@ const MovieItemContainer = styled.div`
             font-size: 3rem;
             color: var(--primary);
         }
+    }
+
+    @media only screen and (max-width: 768px) {
+        width: 200px;
+        height: 250px;
     }
 `;
 

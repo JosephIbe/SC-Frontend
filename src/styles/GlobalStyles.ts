@@ -24,7 +24,6 @@ const GlobalStyles = createGlobalStyle`
     font-size: 10px;
     font-family: 'OpenSans'!important;
     background-color: var(--dark-bg);
-    padding: 0 8rem;
   }
   
   ul,li{
