@@ -12,7 +12,6 @@ import ParagraphText from "../components/ParagraphText";
 import ShowsService from "../services/ShowsService";
 
 import {AiOutlineHeart as LoveThis} from 'react-icons/ai';
-import {FaHeart as Wishlisted} from 'react-icons/fa';
 import {IoArrowBackSharp} from 'react-icons/io5';
 
 import { Swiper, SwiperSlide } from 'swiper/react';

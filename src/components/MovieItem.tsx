@@ -35,13 +35,19 @@ const MovieItemContainer = styled.div`
     }
 
     @media only screen and (max-width: 768px) {
-        width: 200px;
-        height: 250px;
+        width: 180px;
+        height: 220px;
     }
 `;
 
 const MovieItem = ({show} : {show: any}) => {
-    return <MovieItemContainer style={{backgroundImage: `url(${show.image.original})`}}>
+    console.log(show);
+    
+    return <MovieItemContainer style={{
+        backgroundImage: show.image.original != null 
+        ? `url(${show.image.original})`
+        : `url('https://unsplash.com/photos/_WKRX85qlaA')`
+    }}>
         <div className="meta">
             <h5> &#11088; {show.rating.average} </h5>
         </div>

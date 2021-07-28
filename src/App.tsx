@@ -16,7 +16,7 @@ function App() {
         <Switch>
           <Route path='/' exact> <Home /> </Route>
           <Route path='/movies/:id' > <MovieDetails /> </Route>
-          <Route path='/my-wish-list' > <WishList /> </Route>
+          <Route path='/my-wishlist' > <WishList /> </Route>
         </Switch>
       </Router>
       <Footer />

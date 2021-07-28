@@ -82,11 +82,11 @@ const WishList = () => {
     useEffect(()=> {
         setLoading(true);
         dispatch(getAllMoviesInWishlist());
-    }, [])
+    }, [dispatch])
 
     return <WishListContainer>
         {
-            wishlist.length == 0 
+            wishlist.length === 0 
                 ? <div className="loader">
                         <LoaderSpinner 
                             isLoading={loading} 
