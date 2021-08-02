@@ -7,9 +7,9 @@ import { useState } from 'react';
 
 const Navbar = () => {
 
-    const [showMobileNav, setShowMobileNav] = useState(false);
+  const [showMobileNav, setShowMobileNav] = useState(false);
 
-    const NavContainer = styled.nav`
+   const NavContainer = styled.nav`
     width: 100%;
     height: 80px;
     position: fixed;
@@ -152,7 +152,8 @@ const Navbar = () => {
         }
     
     }
-    `;
+    
+  `;
 
     return <NavContainer>
 

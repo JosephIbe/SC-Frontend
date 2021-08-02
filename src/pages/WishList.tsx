@@ -10,12 +10,14 @@ import {getAllMoviesInWishlist} from '../actions/wishlist';
 
 const WishListContainer = styled.div`
     min-height: 100vh;
+    height: calc(100vh - 80px);
     width: 100%;
     color: var(--gray-1);
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    padding: 2rem;
-    grid-gap: 2.5rem;
+    padding: 0 8rem;
+    grid-gap: 1rem;
+    margin-top: 11rem;
 
     a {
         color: var(--gray-1);
@@ -36,7 +38,6 @@ const WishListContainer = styled.div`
         z-index: 50;
         padding: 15px;
         position: relative;
-        margin-top: 10rem;
             
         &:hover {
             cursor: pointer;
@@ -64,9 +65,20 @@ const WishListContainer = styled.div`
             }
         }
 
-        @media only screen and (max-width: 768px) {
-            width: 200px;
-            height: 250px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        width: 100%;
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.5rem;
+        margin-left: -60px;
+        margin-top: 14rem;
+
+        .wishlist {
+            width: 180px;
+            height: 220px;
         }
     }
 `;
@@ -90,7 +102,7 @@ const WishList = () => {
                 ? <div className="loader">
                         <LoaderSpinner 
                             isLoading={loading} 
-                            loadingText="Loading Movies..."
+                            loadingText="Fetching Wishlist..."
                         />
                     </div>
                 : wishlist.map((movie:any, index:number) => {

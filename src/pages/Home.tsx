@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {Link} from 'react-router-dom';
 
 import styled from "styled-components";
@@ -62,7 +62,7 @@ const HomeContainer = styled.div`
 
     .grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(6, 1fr);
         grid-gap: 2.5rem;
         margin-top: 4rem;
         padding: 5px;
@@ -168,8 +168,6 @@ const Home = () => {
         setSearchString('');
     }
 
-    console.log(`searchResults \n ${searchResults}`);
-
     const spliceMovies = (arr: any, chunkSize: number) => {
         var res: any = [];
         while (arr.length > 0) {
@@ -191,7 +189,10 @@ const Home = () => {
         // myArr[0].map((item: any) =>  console.log(item));
     }
 
-    // console.log(movies);
+    const handleScroll = (e: any) => {
+        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+        if (bottom) { console.log('bottom of div') }
+    }
 
     return <HomeContainer>
         
@@ -207,7 +208,7 @@ const Home = () => {
             </div>
         </div>
         
-        <div className="grid">
+        <div className="grid" onScroll={handleScroll}>
             {isFromSearchResults && searchResults.length > 0 ? ( 
                 <>
                     {

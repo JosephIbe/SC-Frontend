@@ -159,12 +159,15 @@ const MovieDetails = () => {
         return dispatch(checkMovieExistsInWishlist(movie.id));
         // console.log(exists);
     }
-    console.log(checkMovie());
     
     return <MovieDetailsContainer>
         
         <div className="meta">
-            <div className="image" style={{backgroundImage: `url(${movie.image.original})`}}/>
+            <div className="image" style={{backgroundImage: 
+                movie.image != null ? `url(${movie.image.original})`
+                : `url('https://unsplash.com/photos/_WKRX85qlaA')`
+                // `url(${movie.image.original})`
+            }}/>
             
             <h3>{movie.name}</h3>
             

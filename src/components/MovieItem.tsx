@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const MovieItemContainer = styled.div`
-    width: 250px;
-    height: 300px;
+    width: 150px;
+    height: 200px;
     border-radius: 20px;
     z-index: 50;
     padding: 15px;
@@ -29,23 +29,22 @@ const MovieItemContainer = styled.div`
         bottom: 10px;
 
         h3 {
-            font-size: 3rem;
+            font-size: 2rem;
             color: var(--primary);
         }
     }
 
     @media only screen and (max-width: 768px) {
-        width: 180px;
-        height: 220px;
+        width: 150px;
+        height: 180px;
     }
 `;
 
 const MovieItem = ({show} : {show: any}) => {
-    console.log(show);
     
     return <MovieItemContainer style={{
-        backgroundImage: show.image.original != null 
-        ? `url(${show.image.original})`
+        backgroundImage: show.image != null ? 
+         `url(${show.image.original})`
         : `url('https://unsplash.com/photos/_WKRX85qlaA')`
     }}>
         <div className="meta">
@@ -53,6 +52,9 @@ const MovieItem = ({show} : {show: any}) => {
         </div>
         <div className="release">
             <h3>{show.name}</h3>
+        </div>
+        <div className="hovered-meta">
+
         </div>
     </MovieItemContainer>
 }

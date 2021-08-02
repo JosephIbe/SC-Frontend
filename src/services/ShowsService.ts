@@ -18,17 +18,17 @@ const searchMovieByTitle = async (title: string) => {
 }
 
 const addMovieToWishlist = async (id: number) => {
-    return await Axios.get(`https://muvi-meta-api.herokuapp.com/api/v1/wishlist/add-movie/${id}`);
+    return await Axios.get(`https://muvi-api.herokuapp.com/api/v1/wishlist/add-movie/${id}`);
 }
 
 const getAllMoviesInWishlist = async () => {
-    return await Axios.get('https://muvi-meta-api.herokuapp.com/api/v1/wishlist/fetch-all');
+    return await Axios.get('https://muvi-api.herokuapp.com/api/v1/wishlist/fetch-all');
 }
 
 const removeMovieItemFromWishlist = async (movie:any) => {}
 
 const checkMovieIsWishlisted = async (id: number) => {
-    return await Axios.get(`https://muvi-meta-api.herokuapp.com/api/v1/wishlist/check-exists/${id}`);
+    return await Axios.get(`https://muvi-api.herokuapp.com/api/v1/wishlist/check-exists/${id}`);
 }
 
 export default {
